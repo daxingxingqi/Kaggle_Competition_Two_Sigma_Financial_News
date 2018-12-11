@@ -1,6 +1,6 @@
 # 优达学院Kaggle竞赛
 
-## 竞赛题目 Two Sigma: Using News to Predict Stock Movements
+# 竞赛题目 Two Sigma: Using News to Predict Stock Movements
 
 地址：https://www.kaggle.com/c/two-sigma-financial-news
 
@@ -15,7 +15,7 @@ Data for this competition comes from the following sources:
 - Market data provided by Intrinio.
 - News data provided by Thomson Reuters. Copyright ©, Thomson Reuters, 2017. All Rights Reserved. Use, duplication, or sale of this service, or data contained herein, except as described in the Competition Rules, is strictly prohibited.
 
-## 参考资料
+# 参考资料
 
 - [时间序列模型 - 也谈其在计量经济学中的应用1](https://zhuanlan.zhihu.com/p/46347425)
 
@@ -23,29 +23,29 @@ Data for this competition comes from the following sources:
 
 - [时间序列模型 - 也谈其在计量经济学中的应用2](https://zhuanlan.zhihu.com/p/48165114)
 
-## 竞赛规则
+# 竞赛规则
 
 以下摘取几个比较重要的规则，全部规则可以后面链接查看https://www.kaggle.com/c/two-sigma-financial-news/rules。
 
-### No private sharing outside teams
+## No private sharing outside teams
 
 Privately sharing code or data outside of teams is not permitted. It's okay to share code if made available to all participants on the forums.
 
-### Team Mergers
+## Team Mergers
 
 Team mergers are allowed and can be performed by the team leader. In order to merge, the combined team must have a total submission count less than or equal to the maximum allowed as of the merge date. `The maximum allowed is the number of submissions per day multiplied by the number of days the competition has been running`.
 
-### Team Limits
+## Team Limits
 
 The maximum team size is 3.
 
-### Submission Limits
+## Submission Limits
 
 You may submit a maximum of 5 entry submissions per day.
 
 You may select up to 2 final submissions for judging.
 
-### Competition Timeline
+## Competition Timeline
 
 - Start Date: **September 25, 2018**
 - Entry Deadline: **January 2, 2019**
@@ -57,7 +57,7 @@ All deadlines are at 11:59 PM UTC on the corresponding day unless otherwise note
 
 
 
-### SUBMISSIONS
+## SUBMISSIONS
 
 'Submission' means the material created and submitted by you in the manner and format specified on the Website via the Submission function on the Website. In this Competition, the Submission will be in the form of code. This is a skills-based competition and all submissions must be original code created by you. You (or if you are part of a Team, your Team) may submit up to the maximum number of Submissions per day as specified above. All Submissions must be run on the Website in the manner and format specified on the Website. Submissions must be received prior to the Competition deadline and adhere to the guidelines for Submissions specified on the Website.
 
@@ -67,7 +67,7 @@ Submissions may not make reference to forward-looking data sources (i.e., any da
 
 If the Competition is a multi-stage Competition with temporally separate training data and/or leaderboard data, one or more valid Submissions must be made and selected during each stage of the Competition in the manner described on the Competition Website.
 
-## 竞赛指导
+# 竞赛指导
 
 NB：竞赛kernel运行cpu-6hrs，gpu-2hrs
 
@@ -79,9 +79,9 @@ NB：竞赛kernel运行cpu-6hrs，gpu-2hrs
 
 - 如何构建lag特征（历史滑窗）并使用多进程优化速度：https://www.kaggle.com/qqgeogor/eda-script-67
 
-### 机器学习基本步骤
+## 机器学习基本步骤
 
-#### 1. 特征观察
+### 1. 特征观察
 对数据集进行一个粗略的探索，一般进行如下操作：
 
 a.**观察前五行数据和数据统计学特征**
@@ -105,7 +105,7 @@ c.**结合数据情况和要求观察数据**
     - 数据量（train,test分布）
     - 缺失数据与离群值
 
-#### 2. 准备数据（数据清洗，格式化和重新组织）
+### 2. 准备数据（数据清洗，格式化和重新组织）
 
 在数据能够被作为输入提供给机器学习算法之前，它经常需要被清洗，格式化，和重新组织 - 这通常被叫做**预处理**。一般进行如下操作：
 
@@ -230,7 +230,7 @@ linridge = Ridge(alpha=20.0).fit(X_train_scaled, y_train)
 
 - Normalizer
    - 使得所有的data的欧式距离为1
-   - 
+   
 - Pipeline
 >Scaling有可能会造成数据的leak，**非常建议使用pipeline**，理由如下：
 >
@@ -259,7 +259,7 @@ pipe.score(X_test, y_test)
 >   - 时序数据分类
 >   - 同时涉及到时序特征和普通特征
 
-#### 3. 特征工程
+### 3. 特征工程
 a.**数据转换**
 
 > - 线性模型，对于回归标签变换能够起到不错的效果
@@ -476,7 +476,7 @@ g.**特征选择**
   - 代表方法为sklearn.feature_selection.RFECV，recursive feature elimination
   - 通过cv结果循环去除数据中的特征	
 
-#### 4. 模型训练和预测
+### 4. 模型训练和预测
 a.**模型训练**
 
 - 平均
@@ -513,6 +513,6 @@ b.**模型验证**
   - 可以自己指定时间划分train和validation set，也可以使用sklearn中的skelarn.model_selection.TimeSeriesSplit生成时序训练和验证数据集
 
 
-#### 5. 调优
+### 5. 调优
 
-#### 6.模型测试
+### 6.模型测试
