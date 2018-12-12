@@ -1,8 +1,36 @@
 ### 竞赛数据包含两大部分：
 ###### 市场金融信息-MaketData
 ###### 新闻文章-News
-#### MaketData，News中采用asset Conde作为资产的标志，并且一个公司可以有多个资产。
-#### 数据格式采用pandas，数据存在间隙（不一定意味着数据不存在，由于选择标准，这些行可能不包括在内）
+#### `MaketData`，`News`中采用 `asset Conde` 作为资产的标志，并且一个公司可以有多个资产。
+#### 数据集使用合成市场和新闻数据填充的，此合成数据旨在模拟真实的未来数据将引入的数量，时间线和计算负担。需要注意此合成数据不遵守交易日历，并且{`time`,`assetCode`}组合的组成在实际数据中会有所不同。
+##### 代码基本格式`train_my_model`和`make_my_predictions`需要实现的部分.[原始链接](https://www.kaggle.com/dster/two-sigma-news-official-getting-started-kernel)
+    from kaggle.competitions import twosigmanews
+    env = twosigmanews.make_env()
+    (market_train_df, news_train_df) = env.get_training_data()
+    train_my_model(market_train_df, news_train_df)
+    for (market_obs_df, news_obs_df, predictions_template_df) in env.get_prediction_days():
+        predictions_df = make_my_predictions(market_obs_df, news_obs_df, predictions_template_df)
+        env.predict(predictions_df)
+    env.write_submission_file()
+##### 只能迭代一次 `get_prediction_days()`
+##### 你开始迭代时小心不要忘记调用一次
+    days = env.get_prediction_days()
+##### `market_observations_df`: 下一个预测日的市场观察
+##### `news_observations_df`: 下一个预报日的新闻观察
+##### `predictions_template_df`: 带有`assetCode`和`confidenceValue`列的`DataFrame`，前缀有`confidenceValue=0`，用于填充并传递回预测函数
+    (market_obs_df, news_obs_df, predictions_template_df) = next(days)
+##### 循环所有的日子，做出我们的随机预测
+    for (market_obs_df, news_obs_df, predictions_template_df) in days:
+        make_random_predictions(predictions_template_df)
+        env.predict(predictions_template_df)
+    print('Done!')
+##### 进行随机预测一天
+    def make_random_predictions(predictions_df):
+        predictions_df.confidenceValue = 2.0 * np.random.rand(len(predictions_df)) - 1.0
+##### 将预测写入当前工作目录中的CSV文件（submission.csv）
+    env.write_submission_file()
+    print([filename for filename in os.listdir('.') if '.csv' in filename])
+#### 数据格式采用`pandas`，数据存在间隙（不一定意味着数据不存在，由于选择标准，这些行可能不包括在内）
 ### MaketData包括：
 ###### time 当前时间
 ###### assetCode 资产ID
@@ -40,10 +68,10 @@
 ###### assetCodes 项目中提到的资产清单
 ###### assetName 资产的名称
 ###### firstMentionSentence 从标题开始的第一个句子，其中提到了评分资产
-######  *1：标题*
-######  *2：第一句话*
-######  *3：第二句等*
-######  *0：在新闻项目的标题或正文中找不到正在评分的资产。结果，整个新闻项目的文本（标题+正文）将用于确定情绪分数。*
+######  > *1：标题*
+######  > *2：第一句话*
+######  > *3：第二句等*
+######  > *0：在新闻项目的标题或正文中找不到正在评分的资产。结果，整个新闻项目的文本（标题+正文）将用于确定情绪分数。*
 ###### relevance 表示新闻项与资产的相关性。它的范围从0到1.如果在标题中提到资产，则相关性设置为1.当项目是警报（紧急度== 1）时，相关性应由firstMentionSentence来衡量
 ###### sentimentClass 表示此新闻项相对于资产的主要情绪类。指示的类是具有最高概率的类。
 ###### sentimentNegative 新闻项目的情绪对资产为负的概率
