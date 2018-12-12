@@ -111,7 +111,7 @@ c.**结合数据情况和要求观察数据**
 
 a.**获得特征和标签**
 
-Example 来自于 finding_donor（https://github.com/daxingxingqi/Supervised_learning/blob/master/finding_donors/finding_donors.ipynb）
+Example 来自于 finding_donor https://github.com/daxingxingqi/Supervised_learning/blob/master/finding_donors/finding_donors.ipynb
 
 ```python
 # 将数据切分成特征和对应的标签
@@ -123,7 +123,7 @@ b.**离群点检测**
 
 通关观察数据，并结合相应知识，把离群点剔除
 
-Example 来自于 ameshouse（https://github.com/daxingxingqi/CSDN_Homework/tree/master/CSDN-homework-1/Homework_2）
+Example 来自于 ameshouse https://github.com/daxingxingqi/CSDN_Homework/tree/master/CSDN-homework-1/Homework_2
 
 ```python
 # 离群点检测（outliers）
